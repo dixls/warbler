@@ -190,7 +190,7 @@ def messages_liked(user_id):
     
     user = User.query.get_or_404(user_id)
     return render_template('users/likes.html', user=user)
-    
+
 
 @app.route('/users/follow/<int:follow_id>', methods=['POST'])
 def add_follow(follow_id):
