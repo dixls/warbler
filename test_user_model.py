@@ -22,6 +22,9 @@ os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
 
 from app import app
 
+app.config['FLASK_ENV'] = "production"
+app.config['DEBUG_TB_ENABLED'] = False
+
 # Create our tables (we do this here, so we only create the tables
 # once for all tests --- in each test, we'll delete the data
 # and create fresh new clean test data

@@ -31,7 +31,8 @@ db.create_all()
 # Don't have WTForms use CSRF at all, since it's a pain to test
 
 app.config['WTF_CSRF_ENABLED'] = False
-
+app.config['FLASK_ENV'] = "production"
+app.config['DEBUG_TB_ENABLED'] = False
 
 class MessageViewTestCase(TestCase):
     """Test views for messages."""
