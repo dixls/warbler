@@ -4,8 +4,9 @@
 #
 #    python -m unittest test_user_model.py
 
+from distutils.log import error
 from app import app
-from models import db, connect_db
+from models import db, connect_db, User
 
 
 # Create our tables (we do this here, so we only create the tables
@@ -53,3 +54,71 @@ def test_is_not_following(test_db, test_user, test_user2):
 
     assert test_user2.is_following(test_user) == False
     assert test_user.is_followed_by(test_user2) == False
+
+
+def test_user_signup(test_db):
+    """
+    GIVEN appropriate user credentials
+    WHEN calling the user.signup method
+    THEN does the user get successfully signed up?
+    """
+
+    signup_user = User.signup("signup_user", "signup@test.user", "signup_password")
+    test_db.session.commit()
+
+    assert signup_user.id
+    assert signup_user.image_url == "/static/images/default-pic.png"
+
+
+def test_user_signup_nopass(test_db):
+    """
+    GIVEN appropriate user credentials
+    WHEN calling the user.signup method
+    THEN does the user get successfully signed up?
+    """
+
+    try:
+        signup_user = User.signup("signup_user", "signup@test.user")
+        test_db.session.commit()
+        assert False
+    except:
+        assert True
+
+
+def test_user_authenticate(persisted_user):
+    """
+    GIVEN a user that exists
+    WHEN appropriate credentials are used to login
+    THEN authentication will succeed
+    """
+
+    login = User.authenticate("test_user", "testpassword")
+
+    assert login.username == "test_user"
+    assert login.id
+
+
+def test_user_authenticate_wrong_username(persisted_user):
+    """
+    GIVEN a user that exists
+    WHEN invalid username is given
+    THEN authentication will fail
+    """
+    try:
+        login = User.authenticate("test_usser", "testpassword")
+        assert False
+    except:
+        assert True
+
+
+def test_user_authenticate_wrong_password(persisted_user):
+    """
+    GIVEN a user that exists
+    WHEN invalid password is given
+    THEN authentication will fail
+    """
+    try:
+        login = User.authenticate("test_user", "testpasssword")
+        assert False
+    except:
+        assert True

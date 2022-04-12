@@ -1,9 +1,11 @@
 from cgi import test
 import pytest
+from flask_bcrypt import Bcrypt
 from models import Message, User, Follows
 from models import db, connect_db
 from app import app
 
+bcrypt = Bcrypt()
 
 @pytest.fixture
 def test_app():
@@ -22,13 +24,13 @@ def test_db(test_app):
 
 @pytest.fixture()
 def test_user():
-    user = User(email="test@test.user", username="test_user", password="testpassword")
+    user = User(email="test@test.user", username="test_user", password=bcrypt.generate_password_hash("testpassword").decode('UTF-8'))
     return user
 
 
 @pytest.fixture()
 def test_user2():
-    user = User(email="test2@user.test", username="test_user2", password="testpassword2")
+    user = User(email="test2@user.test", username="test_user2", password=bcrypt.generate_password_hash("testpassword2").decode('UTF-8'))
     return user
 
 
