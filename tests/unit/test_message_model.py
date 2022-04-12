@@ -8,3 +8,4 @@ app.config.from_object("config.TestingConfig")
 connect_db(app)
 db.create_all()
 
+# def test_message()

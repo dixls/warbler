@@ -23,7 +23,8 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
     TESTING = True
     FLASK_ENV = "production"
-    SQLALCHEMY_DATABASE_URI = "postgresql:///warbler-test"
+    SQLALCHEMY_DATABASE_URI = "postgresql://"
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG_TB_ENABLED = False
     SECRET_KEY = "Still bad!"
+    DEBUG = False

@@ -175,7 +175,6 @@ def users_followers(user_id):
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/")
-
     user = User.query.get_or_404(user_id)
     return render_template('users/followers.html', user=user)
 
