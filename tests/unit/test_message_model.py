@@ -1,11 +1,7 @@
-from models import Message
-import pytest
-from models import db, connect_db
+"""User model tests."""
+
 from app import app
+from models import User, Message
 
 app.config.from_object("config.TestingConfig")
 
-connect_db(app)
-db.create_all()
-
-# def test_message()

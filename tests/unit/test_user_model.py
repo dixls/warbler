@@ -1,24 +1,14 @@
 """User model tests."""
 
-# run these tests like:
-#
-#    python -m unittest test_user_model.py
-
-from distutils.log import error
 from app import app
-from models import db, connect_db, User
-
-
-# Create our tables (we do this here, so we only create the tables
-# once for all tests --- in each test, we'll delete the data
-# and create fresh new clean test data
+from models import User
 
 app.config.from_object("config.TestingConfig")
 
 
 def test_user_model(test_db, test_user):
     """Does basic model work?"""
-    
+
     test_db.session.add(test_user)
     test_db.session.commit()
 
