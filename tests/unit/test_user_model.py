@@ -7,7 +7,11 @@ app.config.from_object("config.TestingConfig")
 
 
 def test_user_model(test_db, test_user):
-    """Does basic model work?"""
+    """
+    GIVEN appropriate user credentials
+    WHEN creating a user is attempted
+    THEN is the user successfully created?
+    """
 
     test_db.session.add(test_user)
     test_db.session.commit()

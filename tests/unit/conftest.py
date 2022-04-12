@@ -52,6 +52,15 @@ def persisted_user2(test_db, test_user2):
     return test_user2
 
 
-@pytest.fixture()
-def new_message():
-    message = Message()
+@pytest.fixture
+def new_message(persisted_user):
+    persisted_user
+    message = Message(text="Test Message Text", user=persisted_user)
+    return message
+
+
+@pytest.fixture
+def persisted_message(new_message, test_db):
+    test_db.session.add(new_message)
+    test_db.session.commit()
+    return new_message
